@@ -1,0 +1,48 @@
+Loop:->train->ascend-> (jump in here with rgb mask, right after encoding text)
+
+					->checkin->displ->latentcoord->speckly_crop->reverse_crop->checkout
+					
+																									  ->set cropCoords
+																						  
+																						  
+																						  
+better structure might be:
+
+Loop:->
+			-
+			->ascend/input encodes->
+			->(jump in here with rgb mask, right after encoding text), modify image in whatever way
+
+			->checkin->displ->latentcoord->speckly_crop
+			
+			->reverse_crop
+					
+																									  ->set new cropCoords
+			>train/loss function
+
+
+Or maybe swap to a system where its all decoupled as modular "passes" (predefined series of functions with parameters in a list that are executed in sequence) are able to be combined however you wish, with maybe different passes defined for different image areas
+This would also allow you to add undo/other trickery
+
+Currently image areas are defined by colour channels, but theres no reason they couldnt be standardised to simply be coordinates on the image instead. Or allow for both, with coordinates able to refer to any image file (with options to resize to match input before calculating)
+Could combine way more prompt boundaries and overlapping ones easier too, like define stuff for the whole image but then minor alterations on subimages that come up
+
++ Automate values
+
+Examples of passes:
+Zoom/rotation/pan/literally any image processing
+clip pass (style transfer), clip pass (modify subject), clip pass (macro shapes) or some shit
+
+R = Rainbow Lorikeet, Crimson Rosella, Eastern Rosella, australian birds sitting on branches of a eucalyptus tree psysurrealism amber sunset sunrise redclouds serene garden terrain painting 
+G = botanical garden, plants, flowers, flora, tapestry mozaic wildflowers naturedrawings illustration botany conceptart arborwildflowers beautifulbabylon wonderland rainforest ravengarden 
+B = seascape shark oceans marine australiterra environments whereyouunderwater aquarium reef starfish ocean seascape underwater coral seas mermaids waterfall fantasy artwork  threshmermaid 
+
+
+r = miracpierpsychedelic panorama releasethekaleidoharper psychedelic album trippy innerspeaker floydkaleidowald himalaypsychedelic kaleidokeynes kaleidozappa amppsychedelic 
+b = kaleidotriplealbum kaleidohipster innerpeaks parallel panoramic inverkaleidoumpadirondalpine kaleidoportrayal kaleidoparallel kaleidozeppelin innerzeppelin inneralbum kaleidopai 
+
+#prompt = "hextile hex screenshot terrain biome gui components implemented dayz videogame rpg apocalypse assets tiles spritesheet anytextures modular gamedev sprite sprites textures dieselpixelart billiontiles explainvideogame lucasoblivion totalsprite pixelart variations collection environmentart malignmedieval foliage botanical dwarf dungeonsanddragons sssskerstextures landscape"#@param {type:"string"}
+
+r old = realistic ethereal clouds paradise heaven zeus archway columns holy surreal fantasy floating island stone towers floating in the sky sun render sunrays
+
+B old =  temple ancient aztec jungle abyancient basilcrypt conceptart worlds cracked stone entrance corrupragnarok lotr wilderness woodlands environment painting ivy mossy landscape gorgeous lightrays mountainscape valley cliff ivy vines towers beautiful 
